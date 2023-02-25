@@ -101,4 +101,5 @@ module.exports.login = (req, res, next) => {
 
 module.exports.deleteToken = (req, res) => {
   res.clearCookie('jwt');
+  res.send('Успешный выход!');
 };
