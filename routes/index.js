@@ -8,7 +8,7 @@ router.use(errors()); // обработчик ошибок celebrate
 
 // проверяет переданные в теле почту и пароль и возвращает JWT
 router.post(
-  '/signin',
+  'api/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
@@ -20,7 +20,7 @@ router.post(
 
 // создаёт пользователя с переданными в теле email, password и name
 router.post(
-  '/signup',
+  'api/signup',
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
@@ -30,10 +30,10 @@ router.post(
   }),
   createUser,
 );
-router.post('/signout', deleteToken);
+router.post('api/signout', deleteToken);
 
-router.use('/users', auth, require('./user'));
-router.use('/movies', auth, require('./movie'));
+router.use('api/users', auth, require('./user'));
+router.use('api/movies', auth, require('./movie'));
 
 // обработчик неизвестных путей
 router.use('*', (req, res, next) => {
