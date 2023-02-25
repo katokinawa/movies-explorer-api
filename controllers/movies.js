@@ -60,12 +60,15 @@ module.exports.deleteMovie = (req, res, next) => {
     .then((movie) => {
       console.log(movie);
       if (!movie) {
-        return next(new NotFound('Фильм с указанным _id не найден.'));
+        next(new NotFound('Фильм с указанным _id не найден.'));
+      } else if (String(movie.owner) !== req.user._id) {
+        next(new Forbidden('Вы не можете удалять фильмы других пользователей.'));
+      } else {
+        movie
+          .remove()
+          .then(() => res.status(200).send({ data: movie }))
+          .catch(next);
       }
-      return movie
-        .remove()
-        .then(() => res.status(200).send({ data: movie }))
-        .catch(next);
     })
     .catch(next);
 };
