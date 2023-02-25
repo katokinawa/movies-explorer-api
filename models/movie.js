@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
 
-// const regExpRU = /[\u0400-\u04FF]/;
-
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
