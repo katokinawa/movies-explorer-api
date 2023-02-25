@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
-const bcrypt = require('bcryptjs');
-const Unauthorized = require('../errors/Unauthorized');
 
-const userSchema = new mongoose.Schema({
+// const regExpRU = /[\u0400-\u04FF]/;
+
+const movieSchema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
@@ -40,58 +40,29 @@ const userSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    default: 'Киноман Неизвестович',
     required: true,
-    minlength: 2,
-    maxlength: 30,
+    validate: {
+      validator: (url) => isURL(url),
+    },
   },
   owner: {
-    type: String,
-    default: 'Киноман Неизвестович',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'movie',
     required: true,
   },
   movieId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     default: 'Киноман Неизвестович',
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   nameRU: {
     type: String,
-    default: 'Киноман Неизвестович',
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   nameEN: {
     type: String,
-    default: 'Киноман Неизвестович',
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
 });
 
-// eslint-disable-next-line func-names
-userSchema.statics.findUserByCredentials = function (email, password) {
-  return this.findOne({ email })
-    .select('+password')
-    .then((userData) => {
-      if (!userData) {
-        return Promise.reject(
-          new Unauthorized('Неправильные почта или пароль'),
-        );
-      }
-      return bcrypt.compare(password, userData.password).then((matched) => {
-        if (!matched) {
-          return Promise.reject(
-            new Unauthorized('Неправильные почта или пароль'),
-          );
-        }
-        return userData;
-      });
-    });
-};
-
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('movie', movieSchema);
