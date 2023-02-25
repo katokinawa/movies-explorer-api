@@ -23,15 +23,12 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
+    movieId,
   } = req.body;
-
-  const MoviesExplorerAPI = {
-    _id: '200200202020',
-  };
 
   Movie.create({
     country,
@@ -40,14 +37,14 @@ module.exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
-    movieId: MoviesExplorerAPI._id,
+    movieId,
     owner: req.user._id,
   })
-    .then((card) => res.send(card))
+    .then((movie) => res.send(movie))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(
@@ -59,18 +56,16 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.cardId)
-    .then((card) => {
-      if (!card) {
-        next(new NotFound('Фильм с указанным _id не найден.'));
-      } else if (String(card.owner) !== req.user._id) {
-        next(new Forbidden('Вы не можете удалять чужие фильмы'));
-      } else {
-        card
-          .remove()
-          .then(() => res.status(200).send({ data: card }))
-          .catch(next);
+  Movie.findById(req.params.movieId)
+    .then((movie) => {
+      console.log(movie);
+      if (!movie) {
+        return next(new NotFound('Фильм с указанным _id не найден.'));
       }
+      return movie
+        .remove()
+        .then(() => res.status(200).send({ data: movie }))
+        .catch(next);
     })
     .catch(next);
 };
