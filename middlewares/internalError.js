@@ -1,6 +1,4 @@
-const router = require('express').Router();
-
-router.use((err, req, res, next) => {
+module.exports = (err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
   res.status(statusCode).send({
@@ -8,6 +6,4 @@ router.use((err, req, res, next) => {
     message: statusCode === 500 ? 'Что-то пошло не так...' : message,
   });
   next();
-});
-
-module.exports = router;
+};
