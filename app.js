@@ -15,12 +15,12 @@ const app = express();
 const { PORT = 3000 } = process.env;
 
 mongoServer();
-app.use(helmet());
+app.use(helmet()); // устанавливает различные HTTP-заголовки
 app.use(cookieParser()); // парсинг куков
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 app.use(requestLogger); // логгер событий
-app.use('*', apiLimiter);
+app.use('*', apiLimiter); // позволяет приложению отказывать при многочисленных запросов
 app.use(routes); // роуты приложения
 app.use(errorLogger); // логгер ошибок
 app.use(internalError); // ошибка сервера
