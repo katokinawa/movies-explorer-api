@@ -30,11 +30,10 @@ router.post(
   }),
   createUser,
 );
+router.post('/signout', deleteToken);
 
 router.use('/users', auth, require('./user'));
 router.use('/movies', auth, require('./movie'));
-
-router.post('/signout', deleteToken);
 
 // обработчик неизвестных путей
 router.use('*', (req, res, next) => {

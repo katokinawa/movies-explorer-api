@@ -5,12 +5,9 @@ const NotFound = require('../errors/NotFound');
 const Forbidden = require('../errors/Forbidden');
 
 module.exports.getUserMovies = (req, res, next) => {
-  Movie.findById(req.owner._id, req.movieId._id)
-    .then((movie) => {
-      if (movie) {
-        return res.send(movie);
-      }
-      return next(new NotFound('Пользователь по указанному _id не найден.'));
+  Movie.find({ owner: req.user._id })
+    .then((movies) => {
+      res.send(movies);
     })
     .catch(next);
 };
@@ -24,10 +21,10 @@ module.exports.createMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    nameRU,
-    nameEN,
     thumbnail,
     movieId,
+    nameRU,
+    nameEN,
   } = req.body;
 
   Movie.create({
@@ -38,10 +35,10 @@ module.exports.createMovie = (req, res, next) => {
     description,
     image,
     trailerLink,
-    nameRU,
-    nameEN,
     thumbnail,
     movieId,
+    nameRU,
+    nameEN,
     owner: req.user._id,
   })
     .then((movie) => res.send(movie))
