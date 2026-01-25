@@ -1,0 +1,43 @@
+{
+  "name": "movies-explorer-api",
+  "version": "0.0.1",
+  "description": "API for project movies-explorer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katokinawa/movies-explorer-api.git"
+  },
+  "author": "Daniil Belogur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katokinawa/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/katokinawa/movies-explorer-api#readme",
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "celebrate": "^15.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "express-winston": "^4.2.0",
+    "helmet": "^6.0.1",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.10.0",
+    "validator": "^13.9.0",
+    "winston": "^3.8.2"
+  }
+}
