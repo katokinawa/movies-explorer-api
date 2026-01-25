@@ -19,7 +19,6 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    default: 'Киноман Неизвестный',
     required: true,
     minlength: 2,
     maxlength: 30,
