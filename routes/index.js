@@ -30,6 +30,7 @@ router.post(
   }),
   createUser,
 );
+
 router.post('/api/signout', auth, deleteToken);
 
 router.use('/api/users', auth, require('./user'));

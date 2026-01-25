@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 // Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
+  'https://katokinawa.front.movies.nomoredomains.work',
+  'http://katokinawa.front.movies.nomoredomains.work',
   'https://localhost:3000',
   'http://localhost:3000',
   'https://localhost:3001',
