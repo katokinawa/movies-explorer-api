@@ -4,8 +4,6 @@ const { login, createUser, deleteToken } = require('../controllers/users');
 const auth = require('../middlewares/auth');
 const NotFound = require('../errors/NotFound');
 
-// eslint-disable-next-line no-useless-escape
-
 router.use(errors()); // обработчик ошибок celebrate
 
 // проверяет переданные в теле почту и пароль и возвращает JWT
@@ -33,10 +31,10 @@ router.post(
   createUser,
 );
 
-router.post('/signout', auth, deleteToken);
-
 router.use('/users', auth, require('./user'));
 router.use('/movies', auth, require('./movie'));
+
+router.post('/signout', deleteToken);
 
 // обработчик неизвестных путей
 router.use('*', (req, res, next) => {

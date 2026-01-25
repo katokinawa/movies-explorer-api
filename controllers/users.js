@@ -99,5 +99,6 @@ module.exports.login = (req, res, next) => {
     });
 };
 
-module.exports.deleteToken = (req, res, next) => {
+module.exports.deleteToken = (req, res) => {
+  res.clearCookie('jwt');
 };
