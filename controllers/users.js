@@ -97,9 +97,6 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.deleteToken = (req, res) => {
-  if (req.cookies.jwt) {
-    res.clearCookie('jwt');
-    return res.send('Успешный выход!');
-  }
-  return res.send('Куков нет...');
+  res.clearCookie('jwt');
+  res.status(200).send({ message: 'Успешный выход!' });
 };
