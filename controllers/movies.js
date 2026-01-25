@@ -22,12 +22,16 @@ module.exports.createMovie = (req, res, next) => {
     duration,
     year,
     description,
-    image, trailer,
+    image,
+    trailer,
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
   } = req.body;
+
+  const MoviesExplorerAPI = {
+    _id: '200200202020',
+  };
 
   Movie.create({
     country,
@@ -40,7 +44,8 @@ module.exports.createMovie = (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    movieId,
+    movieId: MoviesExplorerAPI._id,
+    owner: req.user._id,
   })
     .then((card) => res.send(card))
     .catch((err) => {

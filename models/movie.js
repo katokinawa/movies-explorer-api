@@ -47,12 +47,12 @@ const movieSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'movie',
+    ref: 'user',
     required: true,
   },
   movieId: {
     type: mongoose.Schema.Types.ObjectId,
-    default: 'Киноман Неизвестович',
+    ref: 'movie',
     required: true,
   },
   nameRU: {
