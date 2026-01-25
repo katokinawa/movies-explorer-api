@@ -23,20 +23,20 @@ router.post(
   '/api/signup',
   celebrate({
     body: Joi.object().keys({
-      name: Joi.string().min(2).max(30),
+      name: Joi.string().required().min(2).max(30),
       email: Joi.string().required().email(),
       password: Joi.string().required(),
     }),
   }),
   createUser,
 );
-router.post('/api/signout', deleteToken);
+router.post('/api/signout', auth, deleteToken);
 
 router.use('/api/users', auth, require('./user'));
 router.use('/api/movies', auth, require('./movie'));
 
 // обработчик неизвестных путей
-router.use('*', (req, res, next) => {
+router.use('*', auth, (req, res, next) => {
   next(new NotFound('Неправильный путь.'));
 });
 
